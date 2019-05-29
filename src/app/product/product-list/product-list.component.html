@@ -12,7 +12,7 @@
               {{showImage ? 'Ocultar' : 'Mostrar'}} Imagenes</button>
           </th>
           <th>Producto</th>
-          <th>Codigo</th>
+          <th>Código</th>
           <th>Disponible</th>
           <th>Precio</th>
           <th>Rating</th>
@@ -20,17 +20,17 @@
       </thead>
       <tr *ngFor="let product of products">
         <td><img *ngIf="showImage" 
-                [src]="product.imageUrl" 
-                [title]="product.productName"
+                [src]="product.imageUrl | default:'../../assets/logo-acme.png'" 
+                [title]="product.productName | uppercase"
                 [style.width.px]="imageWidth"
                 [style.margin.px]="imageMargin"
                 >
         </td>
         <td>{{product.productName}}</td>
         <td>{{product.productCode}}</td>
-        <td>{{product.releaseDate}}</td>
-        <td>{{product.price}}</td>
-        <td>{{product.starRating}}</td>
+        <td>{{product.releaseDate | date:'dd/MM/yyyy'}}</td>
+        <td>{{product.price | currency:'USD':'symbol-narrow':'1.2-3'}}</td>
+        <td><app-star [rating]="product.starRating" ></app-star></td>
       </tr>
     </table>
   </div>
