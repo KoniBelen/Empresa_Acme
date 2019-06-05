@@ -1,26 +1,27 @@
-<div class="card border-primary mb-3 t|ext-center">
+<div class="card border-primary mb-3 text-center">
   <div class="card-header">Lista de Productos</div>
-  <div class="card-body text-primary"></div>
+  <div class="card-body text-primary">
   <div class="table-responsive">
-    <table class="table" *ngIf="products && products.length">
+    <table class="table" > <!-- *ngIf="products && products.length"-->
       <thead>
         <tr>
           <th>
             <button class="btn btn-primary"
                     (click)="toggleImage()">
               <i class="fa fa-eye"></i>
-              {{showImage ? 'Ocultar' : 'Mostrar'}} Imagenes</button>
+              {{showImage ? 'Ocultar' : 'Mostrar'}} Imágenes</button>
           </th>
           <th>Producto</th>
           <th>Código</th>
           <th>Disponible</th>
           <th>Precio</th>
           <th>Rating</th>
+          <th>Acciones</th>
         </tr>
       </thead>
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of productService.products">
         <td><img *ngIf="showImage" 
-                [src]="product.imageUrl | default:'../../assets/logo-acme.png'" 
+                [src]="product.imageUrl | default:'../../assets/sin-imagen.png'" 
                 [title]="product.productName | uppercase"
                 [style.width.px]="imageWidth"
                 [style.margin.px]="imageMargin"
@@ -31,7 +32,21 @@
         <td>{{product.releaseDate | date:'dd/MM/yyyy'}}</td>
         <td>{{product.price | currency:'USD':'symbol-narrow':'1.2-3'}}</td>
         <td><app-star [rating]="product.starRating" ></app-star></td>
+        <td>
+          <button class="btn btn-success" (click)="viewProduct(product)">
+            <i class="fa fa-eye"></i> Ver
+          </button>
+          &nbsp;
+          <button class="btn btn-warning" (click)="updateProduct(product.productID,product)">
+            <i class="fas fa-pencil-alt"></i> Editar
+          </button>
+          &nbsp;
+          <button class="btn btn-danger" (click)="deleteProduct(product.productID)">
+            <i class="fas fa-trash-alt"></i> Borrar
+          </button>
+        </td>
       </tr>
     </table>
+    </div>
   </div>
 </div>
