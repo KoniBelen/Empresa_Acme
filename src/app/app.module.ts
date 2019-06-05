@@ -10,6 +10,7 @@ import localeEsCL from '@angular/common/locales/es-CL';
 import { DefaultPipe } from './image.pipes';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalAddComponent } from './services/modal-add/modal-add.component';
+import {RouterModule} from '@angular/router';
 
 registerLocaleData(localeEsCL,'es-CL');
 
@@ -25,7 +26,13 @@ registerLocaleData(localeEsCL,'es-CL');
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forRoot([
+      {path: 'product/product-list', component: ProductListComponent},
+     // { path: 'Welcome', component: WelcomeComponent },
+      { path: '', redirectTo:'welcome', pathMatch:'full'},
+     // { path: '**', component: PageNotFoundComponent }
+    ])
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es-CL'}],
   bootstrap: [AppComponent]
