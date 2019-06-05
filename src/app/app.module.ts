@@ -11,8 +11,11 @@ import { DefaultPipe } from './image.pipes';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalAddComponent } from './services/modal-add/modal-add.component';
 import {RouterModule} from '@angular/router';
+import {WelcomeComponent} from './welcome/welcome.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 registerLocaleData(localeEsCL,'es-CL');
+
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ registerLocaleData(localeEsCL,'es-CL');
     ProductListComponent,
     StarComponent,
     DefaultPipe,
-    ModalAddComponent
+    ModalAddComponent,
+    WelcomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +34,9 @@ registerLocaleData(localeEsCL,'es-CL');
     ReactiveFormsModule,
     RouterModule.forRoot([
       {path: 'product/product-list', component: ProductListComponent},
-     // { path: 'Welcome', component: WelcomeComponent },
+      { path: 'Welcome', component: WelcomeComponent },
       { path: '', redirectTo:'welcome', pathMatch:'full'},
-     // { path: '**', component: PageNotFoundComponent }
+      { path: '**', component: PageNotFoundComponent }
     ])
   ],
   providers: [{provide: LOCALE_ID, useValue: 'es-CL'}],
