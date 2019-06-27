@@ -23,7 +23,7 @@
   <div class="card-header">Lista de Productos</div>
   <div class="card-body text-primary">
   <div class="table-responsive">
-    <table class="table" > <!-- *ngIf="products && products.length"-->
+    <table class="table"  *ngIf="this.productService.filteredProducts && this.productService.filteredProducts"> 
       <thead>
         <tr>
           <th>
@@ -40,7 +40,7 @@
           <th>Acciones</th>
         </tr>
       </thead>
-      <tr *ngFor="let product of productService.products">
+      <tr *ngFor="let product of this.productService.filteredProducts">
         <td><img *ngIf="showImage" 
                 [src]="product.imageUrl | default:'../../assets/sin-imagen.png'" 
                 [title]="product.productName | uppercase"

@@ -18,21 +18,10 @@ export class ProductListComponent implements OnInit {
   showImage: boolean = false;
   _listFilter: string;
 
-  constructor(private productService: ProductService,
+  constructor(public productService: ProductService,
               private modalAddService: ModalAddService) {}
 
-/*              this.productService.getProducts().subscribe((res: any[]) => {
-      this.productService.products = res;
-      this.productService.filteredProducts = res;
-      console.log(this.productService.products);
-    },
-      err => console.log(err)
-    )
-  }*/
 
-  toggleImage(): void{
-    this.showImage=!this.showImage;
-  }
 
   ngOnInit(): void {
 
@@ -43,7 +32,29 @@ export class ProductListComponent implements OnInit {
     },
       err => console.log(err)
     )
-    this.productService.filteredProducts = this._listFilter ? this.performFilter(this.listFilter) : this.productService.products;
+    //this.productService.filteredProducts = this._listFilter ? this.performFilter(this.listFilter) : this.productService.products;
+  }
+
+
+  toggleImage(): void {
+    this.showImage = !this.showImage;
+  }
+
+  public get listFilter(): string {
+    return this._listFilter;
+  }
+
+ public set listFilter(value: string) {
+    this._listFilter = value;
+    this.productService.filteredProducts =
+      this._listFilter ? this.performFilter(this.listFilter) :
+        this.productService.products;
+  }
+
+  performFilter(filterBy: string): IProduct[] {
+    filterBy = filterBy.toLocaleLowerCase(); //convierte todos los caracteres de filtraje en minusculas
+    return this.productService.products.filter((product: IProduct) =>
+      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);// función flecha anonima que recibe como parametro el arreglo productos
   }
 
   deleteProduct(id: number){
@@ -51,7 +62,7 @@ export class ProductListComponent implements OnInit {
     this.productService.deleteProduct(id).subscribe(()=>{
       return this.productService.getProducts().subscribe((res:any[]) => {
         this.productService.products = res;
-        //this.filteredProducts = res;
+        this.productService.filteredProducts = res;
       },
       err => console.log(err));
     })
@@ -71,6 +82,7 @@ export class ProductListComponent implements OnInit {
     this.productService.updateProduct(id, datos).subscribe(()=>{
       return this.productService.getProducts().subscribe((res:any[])=>{
         this.productService.products = res;
+        this.productService.filteredProducts = res;
       },
       err => console.log(err));
     })
@@ -79,26 +91,7 @@ export class ProductListComponent implements OnInit {
 
   today: number = Date.now();
 
-  get listFilter(): string {
-    return this._listFilter;
-  }
-
-  set listFilter(value: string) {
-    this._listFilter = value;
-    this.productService.filteredProducts =
-      this._listFilter ? this.performFilter(this.listFilter) :
-        this.productService.products;
-  }
-
-  performFilter(filterBy: string): IProduct[] {
-    filterBy = filterBy.toLocaleLowerCase(); //convierte todos los caracteres de filtraje en minusculas
-    return this.productService.products.filter((product: IProduct) =>
-      product.productName.toLocaleLowerCase().indexOf(filterBy) !== -1);// función flecha anonima que recibe como parametro el arreglo productos
-  }
-
-
-
-  crearProducto() {
+   crearProducto() {
     let datos: any = {
       name: 'Producto' + Math.round(Math.random() * (100 - 1) + 1),
       code: this.productService.generarCodigo(),
@@ -115,7 +108,7 @@ export class ProductListComponent implements OnInit {
     this.productService.saveProduct(producto).subscribe(() => {
       return this.productService.getProducts().subscribe((res: any[]) => {
         this.productService.products = res;
-        this.productService.filteredProducts = res;
+        //this.productService.filteredProducts = res;
       },
         err => console.log(err));
     })

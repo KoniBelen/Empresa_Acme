@@ -13,8 +13,8 @@
         <!-- Modal body -->
         <div class="modal-body">
           <!-- Nombre del producto -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Nombre</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Nombre</label>
             <div class="col-8">
               <input class="form-control" type="text" placeholder="Nombre" formControlName="name">
               <div *ngIf="formProduct.get('name').errors && (formProduct.get('name').touched 
@@ -25,10 +25,10 @@
           </div>
 
           <!-- Codigo del Producto -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Código</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Código</label>
             <div class="col-8">
-              <input class="form-control" type="text" placeholder="Código" formControlName="code">
+              <input formControlName="code" class="form-control" type="text" placeholder="Código con formato XXX-0000" >
               <span *ngIf="formProduct.get('code').pending"> (Buscando ...)</span>
               <div *ngIf="formProduct.get('code').errors && formProduct.get('code').errors?.existe"
                     class="alert alert-danger"> El código ingresado ya existe
@@ -41,8 +41,8 @@
           </div>
 
           <!-- Fecha de Registro -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Fecha</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Fecha</label>
             <div class="col-8">
               <input class="form-control" type="date" placeholder="Fecha" formControlName="date">
               <div *ngIf="formProduct.get('date').errors && (formProduct.get('date').touched 
@@ -51,19 +51,19 @@
             </div>
           </div>
           <!-- Precio del Producto -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Precio</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Precio</label>
             <div class="col-8">
               <input class="form-control" type="number" placeholder="Precio" formControlName="price">
               <div *ngIf="formProduct.get('price').errors && (formProduct.get('price').touched 
-                                        || formProduct.get('price').dirty)" class="alert alert-danger"> El valor del precio es negativo por favor ingresa un precio mayor a cero
+                     || formProduct.get('price').dirty)" class="alert alert-danger"> El valor del precio es negativo por favor ingresa un precio mayor a cero
               </div>
             </div>
           </div>
 
           <!-- Rating del Producto -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Rating</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Rating</label>
             <div class="col-8">
               <input class="form-control" type="number" placeholder="Rating" formControlName="rating">
               <div *ngIf="formProduct.get('rating').errors && (formProduct.get('rating').touched 
@@ -73,10 +73,10 @@
           </div>
 
           <!-- Descripcion del Producto -->
-          <div class="form group row">
-            <label class="col-2 col-form-label">Descripción</label>
+          <div class="form-group row">
+            <label class="col-3 col-form-label">Descripción </label>
             <div class="col-8">
-              <input class="form-control" type="text" placeholder="Descripción" formControlName="description">
+              <input class="form-control" type="text" placeholder="Descripción " formControlName="description">
               <div *ngIf="formProduct.get('description').errors && (formProduct.get('description').touched 
                    || formProduct.get('description').dirty)" class="alert alert-danger"> Ingrese un descripción
               </div>
@@ -84,10 +84,10 @@
           </div>
 
         </div>
-        <!-- Modal footer (click)="ocultarModal()"-->
+        <!-- Modal footer -->
         <div class="modal-footer">
           <button type="submit" [disabled]="!formProduct.valid" class="btn btn-primary" data-dismiss="modal">Guardar</button>
-          <button (click)="ocultarModal()" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button (click)="ocultarModal()" type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
         </div>
 
       </form>
